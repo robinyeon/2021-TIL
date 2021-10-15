@@ -1,4 +1,3 @@
 # Today I Learned
 
-🌊 매일같이 우당탕거린 내용들을 정리합니다 <br>
-🐣 당장은 잘 못해도 재밌으니까 괜찮음! <br>
+A personal note for bibs and bobs!
