@@ -14,8 +14,8 @@
 ## Searching for Elements
 - Grab one specific thing: `document.getElementById("id")`
 - `document.querySelector(".hello h1")` allows us to search for an element using **css notation**.
-  - Returns only the first element if there's many.
-  - `document.querySelectorAll("")` shows an array of every elements that matches condition.
+  - `.querySelector` returns only the first element if there's many.
+  - Instead, `document.querySelectorAll("")` shows an array of every elements that matches condition.
 
 <br/>
 
