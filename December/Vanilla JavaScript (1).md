@@ -31,6 +31,10 @@
   - We just want to pass the function 'name' without `()` to JavaScript so that JS can press play instead of us when users clicked something.
   - **Do not put parenthesis in the callback.**
 
-### How to find event name
+### How to find `event` name
 1. search mdn or
-2. `on-` series from `console.dir()` e.g. onClick
+2. on*eventname* series from `console.dir()` e.g. onClick
+
+#### (fyi) 2 ways
+- title.onClick = handleTitleClick
+- title.addEvenetListener("click", handleTitleClick)
