@@ -28,7 +28,7 @@ h1.addEventListener("click", handleTitleClick);
 ```
 
 ### toggle
-- Check a class name existence
+- Check if a class name exist or not.
   - exist -> remove
   - doesn't exist -> add
 - so the above lengthy code with `.contains`, `.remove`, `.add` could be replaced with below:
@@ -41,3 +41,57 @@ function handleTitleClick() {
 
 h1.addEventListener("click", handleTitleClick);
 ```
+- but still, it's important to know the history of this toggle function.
+
+## `.getElementById()`, `.querySelector()`
+```
+const loginForm = document.getElementById("login-form");
+```
+```
+const loginForm = document.querySelector("#login-form");
+```
+- querySelector로는 tagName, Id 모두 검색 가능하니 selector 함께 명시해주기
+
+<br/>
+
+## check validity
+- Never trust users, always test validation. e.g. required, length
+- To trigger the validation of the input
+  1. `if~else`
+    ```
+    function onLoginSubmit() {
+    const userName = loginInput.value;
+    if (userName === "") {
+        alert("plz write your name :)");
+    } else if (userName.length > 15) {
+        alert("your name is too long :(")
+    }
+    console.log(userName);
+    }
+    ```
+  2. Inside the element
+    - e.g. `<input required maxlength="15" type="text" placeholder="What is your name?" />`
+    - **input should be inside of the form tag**.
+
+<br/>
+
+## `<input type="submit">`
+- Form will be submitted if we press the button or entere. 
+  1. Form is being submitted,
+  2. then the whole website will be refreshed
+
+### Q. How to save the value w/o the page refreshing?
+  - Refreshing is a default behavior of `form submit`.
+  - Browsers are configured to do so.
+  - We can stop this default behavior by `.preventDefault()`.
+
+### eventListener's first argument
+- Every eventListners has **information** about the event just occured in their first argument.
+- We just need to make a space for those extra information then JS will fill the space automatically.
+- As a convention, we usually name the first argument 'event'.
+
+### `.preventDefault()`
+- eventListener의 첫번째 argument 안에 있는 기본 function
+- Stop default behaviors(e.g. refreshing)
+
+
