@@ -1,78 +1,100 @@
-***WIP***
-
-```
-const HIDDEN_CLASSNAME = "hidden";
-
-function onLoginSubmit(event) {
-    event.preventDefault();
-    loginForm.classList.add(HIDDEN_CLASSNAME);
-    const username = loginInput.value;
-    localStorage.setItem("username", username);
-    greeting.innerText = `Hello ${username}!`;
-    greeting.classList.remove(HIDDEN_CLASSNAME);
-}
-```
-
 ## localStorage
-- like a tiny DB
-### localStorage.setItem("key", "value")
-### localStorage.getItem("key")
-### localStorage.removeItem("key")
-
-## innerText
+- `localStorage.setItem("key", "value")` localStorage에 저장하기
+- `localStorage.getItem("key")` key에 해당하는 value값 가져오기
+- `localStorage.removeItem("key")` key에 해당하는 value값 삭제
 
 
-## string convention
-- 일반적으로 string만 포함된 변수는 full대문자로 표기
-- if we make mistakes writing string, JS won't let us know. on the other hand, if we make mistakes writing variables, JS let us know by error.
-- repeated string is better to be saved in variables.
+### `JSON.stringify()`
+- JavaScript 값이나 객체를 JSON 문자열로 변환
+- 즉 object든 array든 string의 형태로 저장할 수 있도록 도와줌
+```
+JSON.stringfy([1,2,3,4])    // "[1,2,3,4]"
+```
 
-## making function
-- 반복되는 행위는 함수로 만들어주기
+### `JSON.parse()`
+- JSON 문자열의 구문을 분석하고, 그 결과에서 JavaScript 값이나 객체를 생성
+```
+const json = '{"result":true, "count":42}';
+const obj = JSON.parse(json);
+
+console.log(obj.count);
+// expected output: 42
+
+console.log(obj.result);
+// expected output: true
+```
+
+<br/>
+
+## `.innerText`
+- e.g. `greeting.innerText = `Hello ${username}!`;`
+- text 삽입 시 사용
+
+<br/>
+
+## DRY (Don't Repeat Yourself)
+
+### string convention
+- string만 포함된 변수는 full UpperCase로 표기하는 관습
+- If we make mistakes writing string: JS won't let us know.
+- On the other hand, if we make mistakes writing variables, JS will let us know by showing error.
+- Thus it's better to save repeated strings in variables.
+
+### making function
+- 반복되는 행위 역시 함수로 만들어주기
+
+<br/>
 
 ## argument vs parameter
-"...the procedure defines a parameter, and the calling code passes an argument to that parameter. You can think of the parameter as a parking space and the argument as an automobile."
-`f(x) = x*x`와 같은 함수 정의 부분에서 변수 ‘x’가 매개변수(parameter)가 되며, f(2)와 같은 함수 호출 부분에서 값 ‘2’ 가 함수의 전달인자(argument)가 된다.
+- `f(x) = 2x`와 같은 함수 정의 부분에서
+    - 변수 `x`가 parameter(매개변수)가 되며
+    - `f(2)`와 같은 함수 호출에서의 값 `2`가 함수의 argument(전달인자)가 된다.
+> "...the procedure defines a parameter, and the calling code passes an argument to that parameter. **You can think of the parameter as a parking space and the argument as an automobile**."_ from [MSDN](https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/procedures/differences-between-parameters-and-arguments)
 
+<br/>
 
 ## setTimeout vs setInterval
-interval: e.g. 매 2초 마다 일어나기 sth over and over and over again
-setInterval(the function you want to run, every x millisecond e.g. 5000 = 5s)
-setInterval(sayHello, 5000);
+- Interval: sth over and over again e.g. 매 2초마다 발생시키기
+    - setInterval(the function you want to run, every 'x' millisecond e.g. 5000 = 5s)       
+- Timeout: 몇 초 후 발생시키기(단발성)     
+    - setTimeout(the function you want to run, every 'x' millisecond e.g. 5000 = 5s)      
+    - e.g. `setTimeout(sayHello, 5000);`
 
-timeout: only once
-setTimeout(the function you want to run, after x millisecond e.g. 5000 = 5s)
-setTimeout(sayHello, 5000);
+<br/>
 
-## Date()
+## clock
+
+### Date()
+```
 const date = new Date();
 date.getHours();
 date.getMinutes();
 date.getSeconds();
+```
+- 보통은 `hours = date.getHours()`와 같이 변수에 넣어 사용
+- `Date.now()`: useful way to get random number.
+- 한자리 숫자가 두자리로 표현되진 않음 e.g. `13:01`이 아닌 `13:1`로 표기됨
+    - *Remember, all developers experience same problems.*
 
-## problem solving
-- all the developers have same problems. you can be almost sure there will be function.
+### `.padStart()` and `.padEnd()`
+- string에 적용 가능
+    - 따라서 숫자인 시간은 string으로 변환 후 적용해줘야 
 
-## padStart padEnd
-- 'string'이어야만 해. 그러니 숫자인 시간은 string으로 바꾸고 붙여줘야겠지.
-//string이 2글자 되지 않는다면 앞에 0 붙이기 by padStart
-// "1".padStart(2, "0");
-// "1"이라는 string이 2글자(this string should be 2 characters long)가 되지 않는다면 앞(start of the string)에 "0"을 붙여주세요라는 의미
+- string이 2글자가 되지 않는다면 앞에 "0" 붙이기 by using `.padStart()`
+```
+"1".padStart(2, "0"); // "01"
+// "1"이라는 string이 2글자가 되지 않는다면 앞에 "0"을 붙여주세요라는 의미
 
-//string이 2글자 되지 않는다면 뒤에 0 붙이기 by padEnd
-// "1".padEnd(2, "0");
-// "1"이라는 string이 2글자(this string should be 2 characters long)가 되지 않는다면 뒤(end of the string)에 "0"을 붙여주세요라는 의미
+"hello".padStart(20, "x"); // "xxxxxxxxxxxxxxxhello"
+```
 
-"1".padStart(2, "0");
-'01'
-"12".padStart(2, "0");
-'12'
-"1".padEnd(2, "0");
-'10'
-"hello".padStart(20, "x");
-'xxxxxxxxxxxxxxxhello'
+- string이 2글자가 되지 않는다면 뒤에 "0" 붙이기 by using `.padEnd()`
+```
+"1".padEnd(2, "0"); // "10"
+// "1"이라는 string이 2글자가 되지 않는다면 뒤에 "0"을 붙여주세요라는 의미
+```
 
-### clock
+### How to make clock
 ```
 function getClock() {
     const date = new Date();
@@ -83,57 +105,59 @@ function getClock() {
 }
 ```
 
+<br/>
+
 ## Math
-Math.random() 0~1 사이의 랜덤한 숫자 반환
-Math.random() * 10 0~10 사이의 랜덤한 숫자 반환
-Math.random() * 20 0~20 사이의 랜덤한 숫자 반환
+### `Math.random()`
+- 0~1 사이의 랜덤한 숫자 반환
+- `Math.random() * 10` 0~10 사이의 랜덤한 숫자 반환
+- `Math.random() * 18` 0~18 사이의 랜덤한 숫자 반환
 
-Math.round() 반올림
-Math.ceil() 올림
-Math.floor() 내림
+### 올림, 내림, 반올림
+- `Math.round()` 반올림
+- `Math.ceil()` ceiling천장 -> 올림
+- `Math.floor()` floor바닥 -> 내림
 
-`Math.floor(Math.random()*10)`
+### Array내의 element 랜덤하게 보여주기
+- e.g. `Math.floor(Math.random()*10)`를 index`[]`로 활용하기 
 
-## create HTML from JS
+<br/>
 
-//JS => HTML 하는 방법 createElement: create HTML by JS
-const bgImage = document.createElement("img");
-bgImage.src = `img/${chosenImage}`;
+## `.createElement("tag")`
+- the way to create HTML by JS
+- e.g. `const bgImage = document.createElement("img");`
 
-### appendChild
-- add the html to the body
-document.body.appendChild(bgImage);
+### `.appendChild()` and `.prepend()`
+- for attachment
+    - `appendChild`: attach at the end.
+    - `prepend`: attatch at the front.
+- add html to the body e.g. `document.body.appendChild(bgImage);`
 
+<br/>
 
-## 복사
+## 변수 관련
 ```
 function handleToDoSubmit(event) {
     event.preventDefault();
-    const newTodo = toDoInput.value;
-    // newTodo에 복사해서 넣었을뿐
-    // toDoInput에 들어오는 current value를 newTodo라는 변수에 넣었을뿐
-    console.log(newTodo);
-    toDoInput.value = "";
-    // toDoInput.value만 영향받지 newTodo는 영향받지 않아
-    console.log(newTodo, toDoInput.value);
+    const newTodo = toDoInput.value;    // newTodo에 toDoInput.value를 복사해서 넣었을뿐. toDoInput에 들어오는 current value를 newTodo라는 변수에 넣었을뿐.
+    toDoInput.value = "";    // 그러니 toDoInput.value만 영향을 받고 newTodo는 영향받지 않는다.
 }
 ```
 
-## JSON.stringify()
-object든 array든 string의 형태로 저장
-## JSON.parse()
-string => array
+<br/>
 
-## Date.now()
-useful way to get random number 
+## `.id`
+- JS로 HTML 태그에 id 부여하는 방법 e.g. `li.id = 
 
-## .id
-JS로 HTML태그에 id 만들기
+<br/>
 
 ## .filter()
-old array에 수정하는것이 아닌 new array를 반환
+- old array에 수정을 가하는것이 아닌 new array를 만들어내 반환하는 것
 
-## navigator.geolocation.getCurrentPosition()
+<br/>
+
+## Weather_location
+- `navigator.geolocation.getCurrentPosition(function for success, function for failure)`
 ```
 function onGeoSuccess(position) {
     const lat = position.coords.latitude;
@@ -147,10 +171,6 @@ function onGeoError() {
 
 navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError)
 ```
-
-## inspect tool > network
-- 우리가 뭔갈 했을 때 인터넷에서 무슨일이 일어났는지 보여주는 탭
-
 
 
 
