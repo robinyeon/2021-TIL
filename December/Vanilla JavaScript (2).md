@@ -1,5 +1,3 @@
-***WIP***
-
 ## raw value
 - What programmers chose to write e.g. String, Int      
 - Might make mistakes and JavaScript won't let us know which one is wrong(just showing error sign).     
