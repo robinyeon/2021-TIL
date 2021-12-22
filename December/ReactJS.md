@@ -1,5 +1,7 @@
 ***WIP***
 
+211221 
+
 왜 React JS?
 1. (many big websites behind React JS) 단순히 큰 회사들이 사용한다고 해서가 아닌, 그들이 굳이 다른 라이브러리, 프레임워크를 쓸 이유가 없는거지. 이미 안정적인 리액트를 위해 다양한 투자중.
 2. 굉장히 큰 커뮤니티: ReactJS is mostly JS 사용하다보니 JS 커뮤니티를 그대로 끌고 왔다고 해도 과언이 아님 e.g. 라이브러리, 프레임워크, 가이드, 튜터, 채용문도 그래서 넓음
@@ -227,26 +229,147 @@ how to: automatically triggering rerendering
 />         
 ```
 
+211222
+
+JSX: {}안에 js문법을 쓸 수 있다. 그냥 쓰면 text로 인식
+```
+const App = () => {
+      const [index, setIndex] = React.useState("0");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1 className="hi">SUPER CONVERTER</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          {index === "0" ? <MinutesToHours /> : null} // 이부분!
+        </div>
+      );
+    };
+```
+
+props: parent => child component
+```
+const App = () => {
+  return (
+    <div>
+      <Btn banana="Save Changes" />
+      <Btn banana="Continue" />
+      // 우리가 넣어둔 모든 것들을 Btn의 첫번째 인자 and the only argument로서 {} 넣어줌. 
+      // e.g. Btn({banana:"Save Changes"})
+    </div>
+  );
+};
+```
+
+Btn(props)
+```
+   const Btn = (props) => {
+      console.log(props);
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px ",
+            borderRadius: "10px",
+            border: "none",
+          }}
+        >
+          {props.banana}
+        </button>
+      );
+    };
+
+    const App = () => {
+      return (
+        <div>
+          <Btn banana="Save Changes" />
+          <Btn banana="Continue" />
+        </div>
+      );
+    };
+
+```
+or Btn({banana})\_shortcut: props가 object고, 그 안에 banana가 있다는 사실을 아니까. 
+```
+   const Btn = (props) => {
+      console.log({banana});
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px ",
+            borderRadius: "10px",
+            border: "none",
+          }}
+        >
+          {banana}
+        </button>
+      );
+    };
+
+    const App = () => {
+      return (
+        <div>
+          <Btn banana="Save Changes" />
+          <Btn banana="Continue" />
+        </div>
+      );
+    };
+
+```
 
 
 
 
+```
+const Btn = ({ text, changeValue }) => { // 여기에 적어 넘겨줘야지 button에 onClick이 먹음
+      return (
+        <button
+          onClick={changeValue}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px ",
+            borderRadius: "10px",
+            border: "none",
+          }}
+        >
+          {text}
+        </button>
+      );
+    };
+const App = () => {
+  const [value, setValue] = React.useState("Save Changes");
+  const changeValue = () => setValue("Revert Changes");
+  return (
+    <div>
+      <Btn text={value} changeValue={changeValue} />
+      // 얘는 이벤트 리스너가 아닌 그저 하나의 props. 위의 <button>안에 들어가면 그땐 이벤트 리스너지
+      <Btn text="Continue" />
+    </div>
+  );
+};
+```
+
+to React: "props가 변하지 않는 컴포넌트는 re-render되지 않았으면 좋겠다" e.g. `<Btn text="Continue" />`
+- React Memo (memorization) e.g. `const MemorizedBtn = React.memo(Btn);`
+- 기존의 Btn 대신 MemorizedBtn로 변경 -> props가 변경되는 버튼만 리렌더됨
+- 후에 앱 구동 속도에 영향을 줌
+- 내가 렌더링을 컨트롤 할 수 있다는 것을 알려주는 작은 보너스로 생각하기
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+prop types: prop의 type이 어떤건지 (e.g. string, number) 실수 안나게끔 규정지을 수 있다
+- 리액트는 해주지 않아. 우리가 
+- script로 임포팅 후 아래와 같이 사용 가능
+```
+Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
+```
