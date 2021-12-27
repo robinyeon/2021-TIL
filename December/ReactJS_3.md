@@ -110,8 +110,9 @@ console.log(id);
 - package.json 내의 scripts에 `"deploy": "gh-pages -d build"` 추가
   - gh-pages에 디렉토리(-d) build에 있는걸 deploy하고 싶다는 의미
 - build -> deploy의 순서를 항상 지켜야하는데, 귀찮으니까 `"predeploy": "npm run build",`
-  - deploy 실행하게 되면 자동으로 predeploy가 먼저 실행됨
+  - deploy 실행하게 되면(npm run deploy) 자동으로 predeploy가 먼저 실행됨
   - 그럼 자연스럽게 build 먼저 되면서 -> deploy 진행
+- 이후 뭔가 수정하고 업데이트 하고 싶다면 `npm run deploy`만 하면 끝
 
 
 
