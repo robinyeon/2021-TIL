@@ -33,8 +33,8 @@ function Button({ text }) {
 - 특정 코드들은 첫 component render때에'만' 실행되게 하고 싶음 e.g. API call이 다른 state 변화 될때마다 call 된다면 무거워 
 
 ### useEffect(1, 2)
-1: function which is going to run only once
-2: which one to watch
+- 1: function which is going to run only once
+- 2: which one to watch
 ```
 function App() {
   const [counter, setCounter] = useState(0);
@@ -61,6 +61,7 @@ function App() {
   }, [keyword]);
 ```
 - `[]` what react is watching
+
 
 ### useEffect recap code below:
 ```
