@@ -116,7 +116,7 @@ console.log(id);
 6. build -> deploy의 순서를 항상 지켜야하는데, 귀찮으니까 `"predeploy": "npm run build",`
   - deploy 실행하게 되면(npm run deploy) 자동으로 predeploy가 먼저 실행됨
   - 그럼 자연스럽게 build 먼저 되면서 -> deploy 진행
-- 이후 뭔가 수정하고 업데이트 하고 싶다면 `npm run deploy`만 하면 끝
+7. 이후 뭔가 수정하고 업데이트 하고 싶다면 `npm run deploy`만 하면 됨
 
 
 
